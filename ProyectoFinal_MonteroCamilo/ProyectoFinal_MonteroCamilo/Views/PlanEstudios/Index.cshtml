@@ -1,0 +1,29 @@
+﻿@model ProyectoFinal_MonteroCamilo.ViewModels.PlanEstudianteViewModel
+@{
+    ViewData["Title"] = "Plan de estudios";
+}
+<h1>Plan de estudios</h1>
+<h5 class="text-muted">@Model.Carrera.Codigo - @Model.Carrera.Nombre</h5>
+
+@foreach (var g in Model.Items.GroupBy(i => i.Cuatrimestre))
+{
+    <h5 class="mt-4">Cuatrimestre @g.Key</h5>
+    <table class="table table-sm align-middle">
+        <thead><tr><th>Código</th><th>Nombre</th><th>Créditos</th><th>Prerrequisitos</th></tr></thead>
+        <tbody>
+            @foreach (var i in g)
+            {
+                <tr>
+                    <td>@i.Curso?.Codigo</td>
+                    <td>@i.Curso?.Nombre</td>
+                    <td>@i.Curso?.Creditos</td>
+                    <td>@(i.Curso!.Prerrequisitos.Any() ? string.Join(", ", i.Curso.Prerrequisitos.Select(p => p.Codigo)) : "—")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (!Model.Items.Any())
+{
+    <p class="text-muted">Tu carrera aún no tiene un plan de estudios publicado.</p>
+}

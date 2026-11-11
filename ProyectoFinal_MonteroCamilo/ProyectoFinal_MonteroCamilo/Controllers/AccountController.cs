@@ -85,6 +85,13 @@ public class AccountController : Controller
         ViewData["ReturnUrl"] = returnUrl;
         if (!ModelState.IsValid) return View(vm);
 
+        var usuario = await _userManager.FindByEmailAsync(vm.Email);
+        if (usuario != null && await _db.Estudiantes.AnyAsync(e => e.UserId == usuario.Id && !e.Activo))
+        {
+            ModelState.AddModelError(string.Empty, "Su cuenta está desactivada. Contacte a la administración.");
+            return View(vm);
+        }
+
         var result = await _signInManager.PasswordSignInAsync(
             vm.Email, vm.Password, vm.RememberMe, lockoutOnFailure: true);
 

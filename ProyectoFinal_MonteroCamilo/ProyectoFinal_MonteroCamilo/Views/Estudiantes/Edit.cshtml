@@ -1,0 +1,31 @@
+﻿@model ProyectoFinal_MonteroCamilo.ViewModels.EstudianteEditViewModel
+@{
+    ViewData["Title"] = "Editar estudiante";
+}
+<h1>Editar estudiante</h1>
+<form asp-action="Edit" method="post" class="col-md-6">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="NombreCompleto" class="form-label"></label>
+        <input asp-for="NombreCompleto" class="form-control" /><span asp-validation-for="NombreCompleto" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Cedula" class="form-label"></label>
+        <input asp-for="Cedula" class="form-control" /><span asp-validation-for="Cedula" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefono" class="form-label"></label>
+        <input asp-for="Telefono" class="form-control" /><span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CarreraId" class="form-label"></label>
+        <select asp-for="CarreraId" asp-items="Model.Carreras" class="form-select"></select>
+        <span asp-validation-for="CarreraId" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

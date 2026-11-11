@@ -27,6 +27,14 @@ public class ApplicationDbContext : IdentityDbContext
 
         b.Entity<CarreraCurso>().HasKey(x => new { x.CarreraId, x.CursoId });
 
+        b.Entity<Curso>()
+            .HasMany(c => c.Prerrequisitos)
+            .WithMany(c => c.EsPrerrequisitoDe)
+            .UsingEntity<Dictionary<string, object>>(
+                "CursoPrerrequisito",
+                j => j.HasOne<Curso>().WithMany().HasForeignKey("PrerrequisitoId").OnDelete(DeleteBehavior.Restrict),
+                j => j.HasOne<Curso>().WithMany().HasForeignKey("CursoId").OnDelete(DeleteBehavior.Restrict));
+
         b.Entity<Estudiante>()
             .HasOne<IdentityUser>().WithOne()
             .HasForeignKey<Estudiante>(e => e.UserId);

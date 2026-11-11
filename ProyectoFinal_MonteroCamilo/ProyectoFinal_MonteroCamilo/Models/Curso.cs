@@ -15,4 +15,6 @@ public class Curso
 
     public ICollection<CarreraCurso> PlanEstudios { get; set; } = new List<CarreraCurso>();
     public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
+    public ICollection<Curso> Prerrequisitos { get; set; } = new List<Curso>();
+    public ICollection<Curso> EsPrerrequisitoDe { get; set; } = new List<Curso>();
 }

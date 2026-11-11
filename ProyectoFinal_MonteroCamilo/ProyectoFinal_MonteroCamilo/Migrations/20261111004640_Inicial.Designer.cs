@@ -9,11 +9,11 @@ using ProyectoFinal_MonteroCamilo.Data;
 
 #nullable disable
 
-namespace ProyectoFinal_MonteroCamilo.Data.Migrations
+namespace ProyectoFinal_MonteroCamilo.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261110215141_ModeloAcademico")]
-    partial class ModeloAcademico
+    [Migration("20261111004640_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace ProyectoFinal_MonteroCamilo.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CursoPrerrequisito", b =>
+                {
+                    b.Property<int>("CursoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrerrequisitoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CursoId", "PrerrequisitoId");
+
+                    b.HasIndex("PrerrequisitoId");
+
+                    b.ToTable("CursoPrerrequisito");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -420,6 +435,21 @@ namespace ProyectoFinal_MonteroCamilo.Data.Migrations
                     b.HasIndex("EstudianteId");
 
                     b.ToTable("Matriculas");
+                });
+
+            modelBuilder.Entity("CursoPrerrequisito", b =>
+                {
+                    b.HasOne("ProyectoFinal_MonteroCamilo.Models.Curso", null)
+                        .WithMany()
+                        .HasForeignKey("CursoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoFinal_MonteroCamilo.Models.Curso", null)
+                        .WithMany()
+                        .HasForeignKey("PrerrequisitoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

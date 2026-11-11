@@ -1,0 +1,14 @@
+﻿@model ProyectoFinal_MonteroCamilo.Models.Docente
+@{
+    ViewData["Title"] = "Editar docente";
+}
+<h1>Editar docente</h1>
+<form asp-action="Edit" method="post" class="col-md-6">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_DocenteForm" model="Model" />
+    <button class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-link">Cancelar</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
