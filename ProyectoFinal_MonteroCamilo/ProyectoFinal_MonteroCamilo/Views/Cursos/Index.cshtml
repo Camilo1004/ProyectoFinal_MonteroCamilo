@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ProyectoFinal_MonteroCamilo.Models.Curso>
+@{
+    ViewData["Title"] = "Cursos";
+}
+<h1>Cursos</h1>
+<partial name="_Mensajes" />
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4"><input name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por código o nombre" /></div>
+    <div class="col-auto"><button class="btn btn-outline-secondary">Buscar</button></div>
+    <div class="col-auto"><a asp-action="Create" class="btn btn-primary">Nuevo curso</a></div>
+</form>
+<table class="table table-striped align-middle">
+    <thead><tr><th>Código</th><th>Nombre</th><th>Créditos</th><th>Prerrequisitos</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Codigo</td>
+                <td>@c.Nombre</td>
+                <td>@c.Creditos</td>
+                <td>@(c.Prerrequisitos.Any() ? string.Join(", ", c.Prerrequisitos.Select(p => p.Codigo)) : "—")</td>
+                <td>@(c.Activo ? "Activo" : "Inactivo")</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <form asp-action="ToggleActivo" asp-route-id="@c.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm @(c.Activo ? "btn-outline-danger" : "btn-outline-success")">@(c.Activo ? "Desactivar" : "Activar")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

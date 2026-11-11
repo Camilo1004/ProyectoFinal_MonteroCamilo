@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ProyectoFinal_MonteroCamilo.Models.Docente>
+@{
+    ViewData["Title"] = "Docentes";
+}
+<h1>Docentes</h1>
+<partial name="_Mensajes" />
+<p><a asp-action="Create" class="btn btn-primary">Nuevo docente</a></p>
+<table class="table table-striped align-middle">
+    <thead><tr><th>Nombre</th><th>Correo</th><th>Especialidad</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Nombre</td>
+                <td>@d.Correo</td>
+                <td>@d.Especialidad</td>
+                <td>@(d.Activo ? "Activo" : "Inactivo")</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@d.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <form asp-action="ToggleActivo" asp-route-id="@d.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm @(d.Activo ? "btn-outline-danger" : "btn-outline-success")">@(d.Activo ? "Desactivar" : "Activar")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProyectoFinal_MonteroCamilo.Models.Carrera>
+@{
+    ViewData["Title"] = "Carreras";
+}
+<h1>Carreras</h1>
+<partial name="_Mensajes" />
+<p><a asp-action="Create" class="btn btn-primary">Nueva carrera</a></p>
+<table class="table table-striped align-middle">
+    <thead><tr><th>Código</th><th>Nombre</th><th>Créditos</th><th>Estudiantes</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Codigo</td>
+                <td>@c.Nombre</td>
+                <td>@c.TotalCreditos</td>
+                <td>@c.Estudiantes.Count</td>
+                <td>@(c.Activa ? "Activa" : "Inactiva")</td>
+                <td class="text-end">
+                    <a asp-action="Plan" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary">Plan de estudios</a>
+                    <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <form asp-action="ToggleActivo" asp-route-id="@c.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm @(c.Activa ? "btn-outline-danger" : "btn-outline-success")">@(c.Activa ? "Desactivar" : "Activar")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -2,4 +2,19 @@
     ViewData["Title"] = "Panel de administración";
 }
 <h1>Panel de administración</h1>
-<p>Bienvenido, administrador.</p>
+<p>Seleccione el módulo que desea gestionar.</p>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <a asp-controller="Carreras" asp-action="Index" class="btn btn-outline-primary w-100 py-4">Carreras</a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="Cursos" asp-action="Index" class="btn btn-outline-primary w-100 py-4">Cursos</a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="Docentes" asp-action="Index" class="btn btn-outline-primary w-100 py-4">Docentes</a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="Estudiantes" asp-action="Index" class="btn btn-outline-primary w-100 py-4">Estudiantes</a>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProyectoFinal_MonteroCamilo.Models.Estudiante>
+@{
+    ViewData["Title"] = "Estudiantes";
+}
+<h1>Estudiantes</h1>
+<partial name="_Mensajes" />
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-5"><input name="q" value="@ViewData["q"]" class="form-control" placeholder="Buscar por nombre, cédula o carrera" /></div>
+    <div class="col-auto"><button class="btn btn-outline-secondary">Buscar</button></div>
+</form>
+<table class="table table-striped align-middle">
+    <thead><tr><th>Nombre</th><th>Cédula</th><th>Carrera</th><th>Teléfono</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.NombreCompleto</td>
+                <td>@e.Cedula</td>
+                <td>@e.Carrera?.Nombre</td>
+                <td>@e.Telefono</td>
+                <td>@(e.Activo ? "Activa" : "Desactivada")</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@e.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <form asp-action="ToggleActivo" asp-route-id="@e.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm @(e.Activo ? "btn-outline-danger" : "btn-outline-success")">@(e.Activo ? "Desactivar" : "Activar")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No se encontraron estudiantes.</p>
+}
